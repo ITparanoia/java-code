@@ -9,11 +9,11 @@ import java.io.InputStream;
 
 public class MyClassLoader extends ClassLoader {  
     
-    private String name; // 类加载器的名字  
+    private String name; // ClassLoader name
   
-    private String path = "d://dev/workspace/java-code/bin/"; // 加载类的路径  
+    private String path = "d://dev/workspace/java-code/bin/"; // .class path  
   
-    private final String fileType = ".class"; // .class文件扩展名  
+    private final String fileType = ".class";
     
     private static MyClassLoader myClassLoader = new MyClassLoader();
   
@@ -22,12 +22,12 @@ public class MyClassLoader extends ClassLoader {
     }
     
     public MyClassLoader(String name) {  
-        super();// 让系统加载器成为该类的加载器的父类加载器  
+        super();  // super is System ClassLoader  
         this.name = name;  
     }
   
     public MyClassLoader(ClassLoader parent, String name) {  
-        super(parent); // 显示指定该类加载器的父加载器  
+        super(parent);  // assign the parent ClassLoader with param
         this.name = name;  
     }
   
@@ -45,7 +45,7 @@ public class MyClassLoader extends ClassLoader {
     }  
       
     /** 
-     * 读取class文件作为二进制流放入到byte数组中去 
+     * read the class file into a byte array 
      * @param name 
      * @return 
      */  
@@ -84,7 +84,7 @@ public class MyClassLoader extends ClassLoader {
     }  
       
     /** 
-     * JVM调用的加载器的方法 
+     * JVM call this method to findClass, must override, default has not been implement 
      */  
     @Override  
     protected Class<?> findClass(String name) throws ClassNotFoundException { 
@@ -96,23 +96,24 @@ public class MyClassLoader extends ClassLoader {
     public Class<?> loadClass(String name,boolean resolve) throws ClassNotFoundException {
         Class clazz = null;
         /*
-        //查看HotSwapURLClassLoader实例缓存下，是否已经加载过class
-        //不同的HotSwapURLClassLoader实例是不共享缓存的
+        // look up HotSwapURLClassLoader object if has loaded the class
+        // different HotSwapURLClassLoader has different cache(do not share)
         clazz = findLoadedClass(name);
         if (clazz != null ) {
             if (resolve){
                 resolveClass(clazz);
             }
-            //如果class类被修改过，则重新加载
-            myClassLoader = new MyClassLoader();
-            clazz = myClassLoader.findClass(name);
+            // if the class has been modified, reloaded it
+            if(isModified){
+                myClassLoader = new MyClassLoader();
+                clazz = myClassLoader.findClass(name);
+            }
             return (clazz);
         }
         */
-        //如果类的包名为"java."开始，则有系统默认加载器AppClassLoader加载
+        // load "java.*" class with AppClassLoader(the system default ClassLoader)
         if(name.startsWith("java.")){
             try {
-                //得到系统默认的加载cl，即AppClassLoader
                 ClassLoader system = ClassLoader.getSystemClassLoader();
                 clazz = system.loadClass(name);
                 if (clazz != null) {

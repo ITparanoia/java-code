@@ -1,7 +1,7 @@
 package me.arthinking.test;
 
 public class MemLeak{
-    public static Byte[] data;
+    public static Byte[] data;  // data store in codesegment
     static {
         System.out.println("init");
         data = new Byte[1];

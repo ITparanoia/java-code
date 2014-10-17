@@ -1,4 +1,4 @@
-package me.arthinking.test;
+package me.arthinking.memoryleaktest;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;

@@ -1,0 +1,45 @@
+Thread 0x31dbe740
+
+  locals:
+
+Thread 0x31dbe7b0
+
+  locals:
+
+Thread 0x31dbe820
+  at java.lang.Object.wait(J)V (Native Method)
+  at java.lang.ref.ReferenceQueue.remove(J)Ljava/lang/ref/Reference; (Unknown Source)
+  at java.lang.ref.ReferenceQueue.remove()Ljava/lang/ref/Reference; (Unknown Source)
+  at java.lang.ref.Finalizer$FinalizerThread.run()V (Unknown Source)
+
+  locals:
+    objectId=0x31dbe898, line=1
+    objectId=0x31dbe890, line=1
+    objectId=0x31dbe898, line=2
+    objectId=0x31dbe820, line=3
+
+Thread 0x31dbe8b0
+  at java.lang.Object.wait(J)V (Native Method)
+  at java.lang.Object.wait()V (Object.java:485)
+  at java.lang.ref.Reference$ReferenceHandler.run()V (Unknown Source)
+
+  locals:
+    objectId=0x31dbe920, line=1
+    objectId=0x31dbe8b0, line=2
+    objectId=0x31dbe920, line=2
+
+Thread 0x31dbe9d0
+  at java.lang.OutOfMemoryError.<init>()V (Unknown Source)
+  at java.util.Arrays.copyOf([Ljava/lang/Object;ILjava/lang/Class;)[Ljava/lang/Object; (Unknown Source)
+  at java.util.Arrays.copyOf([Ljava/lang/Object;I)[Ljava/lang/Object; (Unknown Source)
+  at java.util.ArrayList.ensureCapacity(I)V (Unknown Source)
+  at java.util.ArrayList.add(Ljava/lang/Object;)Z (Unknown Source)
+  at me.arthinking.memoryleaktest.HeapOOM.main([Ljava/lang/String;)V (HeapOOM.java:18)
+
+  locals:
+    objectId=0x321208e0, line=1
+    objectId=0x37a07898, line=1
+    objectId=0x31dbe928, line=4
+    objectId=0x32784cd8, line=4
+    objectId=0x31dbe928, line=5
+

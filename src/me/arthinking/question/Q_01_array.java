@@ -16,8 +16,8 @@ public class Q_01_array {
         int[] intArray = new int[]{1, 3, 5, 7, 9};
         System.out.println(Arrays.asList(intArray).contains(1));  // false
         System.out.println(Arrays.asList(intArray));  // [[I@de6ced]  returns a 'list<int[]>'
-        
         Integer[] intArray2 = new Integer[]{2, 4, 6, 8};
         System.out.println(Arrays.asList(intArray2).contains(2));  // true
     }
+    
 }

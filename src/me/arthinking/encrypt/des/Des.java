@@ -28,10 +28,28 @@ public class Des {
         return new String(decryptedData);
     }
     
+    public static void parseToken(String encTokenString){
+        try {
+            String tokenString = decryptDES(encTokenString, "pconline");
+            if(!tokenString.equals("")){
+                String[] tokenStringArr = tokenString.split("-");
+                if(tokenStringArr.length >= 2){
+                    int time = Integer.parseInt(tokenStringArr[1]);
+                    if(time > System.currentTimeMillis()/1000 - 10000){
+                        System.out.println(tokenStringArr[0]);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("SubscriptionSecondService.parseToken fail: " + e.getMessage());
+        }
+    }
+    
     public static void main(String[] args) {
         try {
-            // System.out.println(decryptDES("PseKPOCSZnY=", "pconline"));
-            System.out.println(encryptDES("abc-" + System.currentTimeMillis()/1000, "pconline"));
+            // System.out.println(decryptDES("OgmuiE+q2n2PN4XvB6G4V0L6+xysA1fEoToDlO3Fk83lUwLj+P4XchJ4etS1 p8Dt", "pconline"));
+            System.out.println(encryptDES("abc-" + (System.currentTimeMillis()/1000 + 60*10), "pconline"));
+            parseToken("OgmuiE+q2n2PN4XvB6G4V0L6+xysA1fEoToDlO3Fk83Li37cpx8e7RPs3DVc N0t0");
         } catch (Exception e) {
             e.printStackTrace();
         }

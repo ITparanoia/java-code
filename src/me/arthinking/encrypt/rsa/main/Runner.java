@@ -16,13 +16,11 @@ public class Runner {
 		byte[] priKey = keyGen.getPriKey();
 		byte[] pubKey = keyGen.getPubKey();
 		
-		
 		String plainText = "signatureDemo";
 		
 		byte[] afterSigned = Signaturer.sign(priKey, plainText);
 		String signature = new String(afterSigned);
 		System.out.println("your signature is: " + signature);
-		
 		
 		boolean verifyResult = SignProvider.verify(pubKey, plainText, afterSigned);
 		System.out.println("verify result: " + verifyResult);

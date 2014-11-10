@@ -12,8 +12,8 @@ public class MemoryLeak {
         while(true){
             System.out.println("load class...");
             MyClassLoader loader = new MyClassLoader("loader1");  
-            clazz = loader.loadClass("me.arthinking.test.MemLeak", false);
-            clazz2 = loader.loadClass("me.arthinking.test.MemLeak2", false);
+            clazz = loader.loadClass("me.arthinking.memoryleaktest.MemLeak", false);
+            clazz2 = loader.loadClass("me.arthinking.memoryleaktest.MemLeak2", false);
             clazz.newInstance();  // init
             clazz2.newInstance();  // init
             list.add(clazz);

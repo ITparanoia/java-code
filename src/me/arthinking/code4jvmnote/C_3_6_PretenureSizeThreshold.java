@@ -6,6 +6,10 @@ public class C_3_6_PretenureSizeThreshold {
 	
 	/**
 	 * VM参数： -verbose:gc -Xms20M -Xmx20M -Xmn10M -XX:+PrintGCDetails -XX:SurvivorRatio=8 -XX:PretenureSizeThreshold=3145728
+	 * 大于3145728这个设置值的对象直接在老年代分配，这样可以避免在Eden区及两个Survivor区之间发生大量的内存复制
+	 * 
+	 * 注意：PretenureSizeThreshold参数只对Serial和ParNew两款收集器有效。
+	 * 
 	 * 深入理解Java虚拟机中的代码
 	 */
 	public static void testPretenureSizeThreshold(){

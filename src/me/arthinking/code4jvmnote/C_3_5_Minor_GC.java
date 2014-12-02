@@ -30,7 +30,7 @@ public class C_3_5_Minor_GC {
     /**
      result: 
                分配allocation4时，Eden已经被占用6MB，不够了（总共8MB），所以发生了一次Minor GC
-     GC期间发现已有的3X2MB大小对象无法全部放入Survivor空间
+     GC期间发现已有的3x2MB大小对象无法全部放入Survivor空间
                所以只好通过分配担保机制提前转移到老年代去了
      
           

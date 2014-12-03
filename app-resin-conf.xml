@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resin xmlns="http://caucho.com/ns/resin" xmlns:resin="http://caucho.com/ns/resin/core">
+ 
+	<log name="" level="info" path="stdout:"/>
+	
+	<cluster id="app-tier">
+		<!-- includes the app-default for default web-app behavior -->
+		<resin:import path="${resin.home}/conf/app-default.xml"/>
+		
+   		<server id="" port="6092">
+	      	<http address="*" port="8018"/>
+	      	
+			<!--
+         		- The JVM arguments
+			-->
+      		<jvm-arg>-Xmx256m</jvm-arg>
+      		<jvm-arg>-Xss1m</jvm-arg>
+			<jvm-arg>-Xdebug</jvm-arg>
+			<jvm-arg>-Dcom.sun.management.jmxremote</jvm-arg>
+			
+			<jvm-arg>-Xrunjdwp:transport=dt_socket,suspend=n,server=y,address=8017</jvm-arg>
+			
+		</server>
+		
+		<!-- configures the default host, matching any host name -->
+		<host id="" root-directory=".">
+			<web-app id="/" root-directory="D:\dev\workspace\java-code\src\main\webapp"/>
+		</host>
+	
+	</cluster>
+</resin>

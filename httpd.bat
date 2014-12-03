@@ -1,0 +1,1 @@
+%RESIN_HOME%\httpd.exe -conf %~dp0app-resin-conf.xml

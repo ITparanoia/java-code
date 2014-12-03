@@ -1,4 +1,4 @@
-package me.arthinking.servlet;
+package me.arthinking.filter;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import org.apache.commons.lang.math.NumberUtils;
 
 /**
- * 拦截App请求参数，这个Filter中嵌入通用的处理
+ * 拦截App请求，这个Filter中嵌入通用的处理
  * 配置拦截App请求路径
  * @author  Jason Peng
  * @create date 2014年12月3日
  */
-public class AppParamFilter implements Filter {
+public class AppFilter implements Filter {
     
     FilterConfig config = null;
 
@@ -28,7 +28,7 @@ public class AppParamFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
-        request = new MyRequestWarpper((HttpServletRequest)request);
+        request = new ParamRequestWarpper((HttpServletRequest)request);
         chain.doFilter(request, response);
     }
 
@@ -38,25 +38,23 @@ public class AppParamFilter implements Filter {
 }
 
 /**
- * 自定义的request封装类，这里编写app参数校验的逻辑。
+ * 自定义的request包装类，处理参数。
  * @author  Jason Peng
  * @create date 2014年12月3日
  */
-class MyRequestWarpper extends HttpServletRequestWrapper {
+class ParamRequestWarpper extends HttpServletRequestWrapper {
 
     private HttpServletRequest request;
 
-    public MyRequestWarpper(HttpServletRequest request) {
+    public ParamRequestWarpper(HttpServletRequest request) {
         super(request);
         this.request = request;
     }
 
-    /**
-     * pageSize参数校验
-     */
     @Override
     public String getParameter(String parameter) {
         String value = request.getParameter(parameter);
+        // pageSize参数校验
         if ("pageSize".equals(parameter)) {
             int pageSize = NumberUtils.toInt(value);
             if(pageSize < 0){

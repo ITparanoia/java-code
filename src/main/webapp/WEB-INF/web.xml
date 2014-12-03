@@ -7,7 +7,7 @@
 
     <filter>
         <filter-name>AppParamFilter</filter-name>
-        <filter-class>me.arthinking.servlet.AppParamFilter</filter-class>
+        <filter-class>me.arthinking.filter.AppFilter</filter-class>
     </filter>
 
     <filter-mapping>

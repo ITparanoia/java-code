@@ -20,7 +20,7 @@ public class C9_6_HackSystem{
 	} 
 	
 	public static void clearBuffer(){ 
-		buffer. reset();
+		buffer.reset();
 	}
 	
 	public static void setSecurityManager(final SecurityManager s){ 

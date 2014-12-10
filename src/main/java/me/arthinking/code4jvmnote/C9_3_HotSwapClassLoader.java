@@ -1,7 +1,8 @@
 package me.arthinking.code4jvmnote;
 
 /** 
- * 为了 多次载入执行类而加入的加载器<br> 
+ * C9_3 ~ C9_7代码实现远程执行功能（之服务器端执行临时代码）
+ * 为了 多次载入执行类而加入的加载器，实现同一个类的代码可以被多次加载<br> 
  * 把 defineClass 方法开放出来，只有外部显式调用的时候才会使用到 loadByte 方法 
  * 由 虚拟机调用时，仍然按照原有的双亲委派规则使用 loadClass 方法进行类加载 
  * 
@@ -14,7 +15,7 @@ public class C9_3_HotSwapClassLoader extends ClassLoader {
 		super(C9_3_HotSwapClassLoader.class.getClassLoader());
 	} 
 	
-	public Class loadByte(byte[] classByte){ 
+	public Class loadByte(byte[] classByte){
 		return defineClass(null, classByte, 0, classByte.length);
 	}
 }

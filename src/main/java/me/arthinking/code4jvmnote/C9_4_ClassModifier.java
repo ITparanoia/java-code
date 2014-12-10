@@ -2,6 +2,8 @@ package me.arthinking.code4jvmnote;
 
 /** 
  * 修改 Class 文件，暂时只提供修改常量池常量的功能 
+ * 将常量池中指定内容的CONSTANT_Utf8_info常量替换为新的字符串
+ * 经过ClassModifier处理后的byte[]数组才会传给HotSwapClassLoader.loadByte()方法进行类加载
  * @author zzm 
  */ 
 public class C9_4_ClassModifier{ 
@@ -30,7 +32,7 @@ public class C9_4_ClassModifier{
 	} 
 	
 	/** 
-	 * 修改 常量池中 CONSTANT_ Utf8_ info 常量的内容
+	 * 修改常量池中 CONSTANT_Utf8_info 常量的内容
 	 * @param oldStr 修改前的字符串 
 	 * @param newStr 修改后的字符串 
 	 * @return 修改结果 

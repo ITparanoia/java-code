@@ -5,6 +5,29 @@
 
     <display-name>java-code</display-name>
 
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath*:/beans.xml
+        </param-value>
+    </context-param>
+    
+    <!--  如果Log4j配置文件放到其他位置，则需要如下配置加载Log4j配置文件
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/log4j.properties</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
+    -->
+    
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+
     <filter>
         <filter-name>AppParamFilter</filter-name>
         <filter-class>me.arthinking.filter.AppFilter</filter-class>

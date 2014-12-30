@@ -1,8 +1,8 @@
 package me.arthinking.spring.ioc;
 
 import me.arthinking.spring.ioc.bean.Car;
-import me.arthinking.spring.ioc.processpr.MyBeanPostProcessor;
-import me.arthinking.spring.ioc.processpr.MyInstantiationAwareBeanPostProcessor;
+import me.arthinking.spring.ioc.processor.MyBeanPostProcessor;
+import me.arthinking.spring.ioc.processor.MyInstantiationAwareBeanPostProcessor;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;

@@ -1,4 +1,4 @@
-package me.arthinking.spring.ioc.processpr;
+package me.arthinking.spring.ioc.processor;
 
 import me.arthinking.spring.ioc.bean.Car;
 

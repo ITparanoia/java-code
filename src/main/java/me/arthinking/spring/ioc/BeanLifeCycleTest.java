@@ -33,6 +33,7 @@ public class BeanLifeCycleTest {
         
         // 查看car1和car2是否指向同一引用
         System.out.println("car1 == car2" + (car1 == car2));
+        
         // 关闭容器
         ((XmlBeanFactory)bf).destroySingletons();
     }

@@ -1,6 +1,22 @@
 package me.arthinking.excel;
 
-
+/**
+ * 实现功能：
+ * excel文件太大的时候打开速度很慢，各种操作也非常卡，这个时候使用程序对excel数据进行分析
+ * 输入excel的目录，读取数据到数据库，并通过SQL语句按照各种条件进行统计
+ * 
+ * 输入路径，文件解析，生成对象，批量插入数据库
+ * ExcelReader readFile 
+ * AbstractExcelParser Item#parseItem(Grid)  List#parseFile(InputStream)
+ * 
+ * Item getSql()
+ *   
+ * DbService update(List<Item>);
+ * DbUtils getConnection() closeConnection() 
+ * 
+ * @author  Jason Peng
+ * @create date 2015年1月14日
+ */
 public class ParseExcel {
 
     /*

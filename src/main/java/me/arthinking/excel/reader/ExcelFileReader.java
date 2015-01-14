@@ -1,0 +1,70 @@
+package me.arthinking.excel.reader;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLException;
+
+import me.arthinking.excel.parser.AbstractExcelParser;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+/**
+ * Usage: new ExcelFileReader(new AmazonExcelParser()).persistentFile(path);
+ * @author  Jason Peng
+ * @create date 2015年1月14日
+ */
+public class ExcelFileReader {
+
+    private AbstractExcelParser parser;
+    
+    private InputStream inputStream = null;
+    
+    public ExcelFileReader(AbstractExcelParser parser){
+        this.parser = parser;
+    }
+    
+    /**
+     * 解析Excel文件，并把解析到的数据存入数据库中
+     * 模板方法，确保解析完成正确的关闭了文件流
+     * @param filePath
+     * @throws FileNotFoundException
+     * @throws IOException
+     * void
+     * @author Jason Peng
+     * @throws SQLException 
+     * @update date 2015年1月14日
+     */
+    public final void persistentFile(String filePath) throws FileNotFoundException, IOException, SQLException {
+        HSSFWorkbook hssfWorkbook = readExcelFile(filePath);
+        this.parseExcel(hssfWorkbook);
+        this.closeInputStream();
+    }
+    
+    /**
+     * @author Jason Peng
+     * @throws SQLException 
+     * @update date 2015年1月14日
+     */
+    private void parseExcel(HSSFWorkbook hssfWorkbook) throws SQLException{
+        parser.parseFile(hssfWorkbook);
+    }
+    
+    private HSSFWorkbook readExcelFile(String filePath) throws FileNotFoundException, IOException {
+        inputStream = new FileInputStream(filePath);
+        HSSFWorkbook workBook = new HSSFWorkbook(inputStream);
+        return workBook;
+    }
+    
+    private void closeInputStream(){
+        try {
+            if(inputStream != null){
+                inputStream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+}

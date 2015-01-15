@@ -1,14 +1,12 @@
 package me.arthinking.excel.parser;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import me.arthinking.excel.item.Item;
+import me.arthinking.excel.persistent.MySqlPersistentService;
 import me.arthinking.excel.persistent.PersistentService;
 
 import org.apache.log4j.Logger;
@@ -20,9 +18,9 @@ public abstract class AbstractExcelParser {
 
     protected static Logger logger = Logger.getLogger("access");
     
-    PersistentService persistentService = null;
+    PersistentService persistentService = new MySqlPersistentService();
     
-    public AbstractExcelParser(PersistentService persistentService){
+    public void setPersistentService(PersistentService persistentService){
         this.persistentService = persistentService;
     }
     

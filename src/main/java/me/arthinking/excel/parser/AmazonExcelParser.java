@@ -12,10 +12,6 @@ public class AmazonExcelParser extends AbstractExcelParser{
 
     protected static Logger logger = Logger.getLogger("access");
     
-    public AmazonExcelParser(PersistentService persistentService) {
-        super(persistentService);
-    }
-
     @Override
     Item parseItem(HSSFRow row) {
         // ASIN

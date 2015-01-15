@@ -8,7 +8,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 public class AmazonItem implements Item{
 
     /**
-     * 主键自动生成
+     * 主键自动生成，无需写入到插入sql语句中
      */
     private long id;
     private String asin;

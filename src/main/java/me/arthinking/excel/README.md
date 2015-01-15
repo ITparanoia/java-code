@@ -8,7 +8,8 @@
 ##使用说明
 ###1、创建行数据实体
 根据Excel每行数据的格式定义一个实体对象，继承Item，例如，有这样的一个数据表格：
-
+![](
+https://raw.githubusercontent.com/arthinking/arthinking.github.io/master/images/2015/01/excel-parser.png)
 对应的Item实现如下：    
 ```
 public class AmazonItem implements Item{
@@ -100,10 +101,6 @@ public class AmazonExcelParser extends AbstractExcelParser{
 
     protected static Logger logger = Logger.getLogger("access");
     
-    public AmazonExcelParser(PersistentService persistentService) {
-        super(persistentService);
-    }
-
     @Override
     Item parseItem(HSSFRow row) {
         // ASIN
@@ -132,6 +129,9 @@ public class AmazonExcelParser extends AbstractExcelParser{
 
 ###4、调用
 ```
-new ExcelFileReader(new AmazonExcelParser(new MySqlPersistentService()))
-            .persistentFile("D://document//amazon.xls");
+// 创建数据表解析类
+AmazonExcelParser excelParser = new AmazonExcelParser();
+// 使用文件读取器解析文件
+new ExcelFileReader(excelParser)
+    .persistentFile("D://document//amazon.xls");
 ```

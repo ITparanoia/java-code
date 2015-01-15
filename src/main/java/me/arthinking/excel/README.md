@@ -7,9 +7,11 @@
 
 ##使用说明
 ###1、创建行数据实体
-根据Excel每行数据的格式定义一个实体对象，继承Item，例如，有这样的一个数据表格：
+根据Excel每行数据的格式定义一个实体对象，继承Item，例如，有这样的一个数据表格：    
+
 ![](
-https://raw.githubusercontent.com/arthinking/arthinking.github.io/master/images/2015/01/excel-parser.png)
+https://raw.githubusercontent.com/arthinking/arthinking.github.io/master/images/2015/01/excel-parser.png)    
+
 对应的Item实现如下：    
 ```
 public class AmazonItem implements Item{

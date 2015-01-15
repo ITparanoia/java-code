@@ -32,7 +32,7 @@ public abstract class AbstractExcelParser {
      * @author Jason Peng
      * @update date 2015年1月14日
      */
-    abstract Item parseItem(HSSFRow row);
+    public abstract Item parseItem(HSSFRow row);
     
     /**
      * 解析Excel文件

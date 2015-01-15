@@ -2,7 +2,6 @@ package me.arthinking.excel.demo;
 
 import me.arthinking.excel.item.Item;
 import me.arthinking.excel.parser.AbstractExcelParser;
-import me.arthinking.excel.persistent.PersistentService;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -13,7 +12,7 @@ public class AmazonExcelParser extends AbstractExcelParser{
     protected static Logger logger = Logger.getLogger("access");
     
     @Override
-    Item parseItem(HSSFRow row) {
+    public Item parseItem(HSSFRow row) {
         // ASIN
         HSSFCell cell = row.getCell(0);
         String asin = cell.getStringCellValue();

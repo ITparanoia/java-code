@@ -11,8 +11,8 @@ import me.arthinking.excel.reader.ExcelFileReader;
 public class AmazonTest {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, SQLException {
-        // 创建数据表解析类
         long start = System.currentTimeMillis();
+        // 创建数据表解析类
         // ExcelParser excelParser = new BatchExcelParser(new AmazonParseStrategy());  // 5050 
         ExcelParser excelParser = new FileImportExcelParser(new AmazonParseStrategy());  // 3688
         // 使用文件读取器解析文件

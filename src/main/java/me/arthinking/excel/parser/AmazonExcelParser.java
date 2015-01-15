@@ -4,11 +4,14 @@ import me.arthinking.excel.item.AmazonItem;
 import me.arthinking.excel.item.Item;
 import me.arthinking.excel.persistent.PersistentService;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 
 public class AmazonExcelParser extends AbstractExcelParser{
 
+    protected static Logger logger = Logger.getLogger("access");
+    
     public AmazonExcelParser(PersistentService persistentService) {
         super(persistentService);
     }
@@ -33,7 +36,7 @@ public class AmazonExcelParser extends AbstractExcelParser{
         item.setBinding(binding);
         item.setCategory(category);
         item.setTitle(title);
-        System.out.println(title);
+        logger.info(title);
         return item;
     }
 }

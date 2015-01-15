@@ -13,4 +13,6 @@ import me.arthinking.excel.item.Item;
 public interface PersistentService {
 
     void batchSave(List<Item> itemList) throws SQLException;
+    
+    void batchCombineSave(List<Item> itemList) throws SQLException;
 }

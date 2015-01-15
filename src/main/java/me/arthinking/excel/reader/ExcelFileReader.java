@@ -45,9 +45,10 @@ public class ExcelFileReader {
     /**
      * @author Jason Peng
      * @throws SQLException 
+     * @throws IOException 
      * @update date 2015年1月14日
      */
-    private void parseExcel(HSSFWorkbook hssfWorkbook) throws SQLException{
+    private void parseExcel(HSSFWorkbook hssfWorkbook) throws SQLException, IOException{
         parser.parseFile(hssfWorkbook);
     }
     

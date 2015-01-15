@@ -130,39 +130,3 @@ public class ParseExcel {
     }
     */
 }
-
-class Product {
-    
-    public Product(){
-        
-    }
-    private int count;
-    private String title;
-    private int category;
-    private String binding;
-    public int getCount() {
-        return count;
-    }
-    public void setCount(int count) {
-        this.count = count;
-    }
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    public int getCategory() {
-        return category;
-    }
-    public void setCategory(int category) {
-        this.category = category;
-    }
-    public String getBinding() {
-        return binding;
-    }
-    public void setBinding(String binding) {
-        this.binding = binding;
-    }
-    
-}

@@ -1,5 +1,9 @@
 package me.arthinking.excel.parser;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +42,7 @@ public abstract class AbstractExcelParser {
      * void
      * @author Jason Peng
      * @throws SQLException 
+     * @throws IOException 
      * @update date 2015年1月14日
      */
     public void parseFile(HSSFWorkbook workbook) throws SQLException{
@@ -59,11 +64,39 @@ public abstract class AbstractExcelParser {
                     if(itemList.size() <= 1000){
                         itemList.add(item);
                     } else {
-                        persistentService.batchSave(itemList);
+                        persistentService.batchCombineSave(itemList);
                         itemList.clear();
                     }
                 }
             }
         }
     }
+    
+    /*
+    public void parseFile(HSSFWorkbook workbook) throws SQLException, IOException{
+        int sheetNum = workbook.getNumberOfSheets();
+        logger.info("sheetNum: " + sheetNum);
+        HSSFRow row = null;
+        FileOutputStream out = null;
+        out = new FileOutputStream(new File("D:/test_script.sql"));
+        for(int k=0; k<2000; k++){
+            HSSFSheet sheet = workbook.getSheetAt(k);
+            int totalSize = sheet.getLastRowNum();
+            logger.info("current process sheet: " + sheetNum);
+            if(totalSize <= 0){
+                continue;
+            }
+            List<Item> itemList = new ArrayList<Item>();
+            for(int i = 1; i < totalSize; i++){
+                row = sheet.getRow(i);
+                if(row != null){
+                    Item item = parseItem(row);
+                    // 写文件到目标文件
+                    out.write("".getBytes());
+                }
+            }
+        }
+    }
+    */
+    
 }

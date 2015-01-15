@@ -6,7 +6,12 @@ import java.sql.Statement;
 
 public interface Item {
 
-    String getInsertSql();
+    String getInsertSqlPreparedStatement();
+    
+    String getInsertSqlPre();
+    
+    void appendInsertValue(StringBuilder sb);
     
     void setInsertSqlParameter(PreparedStatement statement) throws SQLException;
+    
 }

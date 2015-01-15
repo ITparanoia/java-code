@@ -3,6 +3,8 @@ package me.arthinking.excel.item;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 public class AmazonItem implements Item{
 
     /**
@@ -15,8 +17,19 @@ public class AmazonItem implements Item{
     private String title;
     
     @Override
-    public String getInsertSql() {
+    public String getInsertSqlPreparedStatement() {
         return "INSERT amazon_item(asin,binding,category,title) VALUES(?,?,?,?)";
+    }
+    
+    @Override
+    public String getInsertSqlPre() {
+        return "INSERT amazon_item(asin,binding,category,title) VALUES";
+    }
+
+    @Override
+    public void appendInsertValue(StringBuilder sb) {
+        sb.append("('"+ StringEscapeUtils.escapeSql(this.getAsin()) + "','" + StringEscapeUtils.escapeSql(this.getBinding()) + 
+                "'," + this.getCategory() + ",'" + StringEscapeUtils.escapeSql(this.getTitle()) +"')");
     }
 
     @Override

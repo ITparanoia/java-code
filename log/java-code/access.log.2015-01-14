@@ -1,0 +1,25 @@
+2015-01-14 12:17:21,767 [main] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [me/arthinking/spring/ioc/beans.xml]
+2015-01-14 12:17:21,862 [main] INFO  me.arthinking.spring.ioc.BeanFactoryTest - init BeanFactory.
+2015-01-14 12:17:21,891 [main] INFO  me.arthinking.spring.ioc.BeanFactoryTest - User bean is ready for use! Jasonplus
+2015-01-14 12:19:37,init BeanFactory.
+2015-01-14 12:19:37,User bean is ready for use! Jasonplus
+2015-01-14 12:21:17,init BeanFactory.
+2015-01-14 12:21:17,User bean is ready for use! Jasonplus
+2015-01-14 12:27:18,init BeanFactory.
+2015-01-14 12:27:18,User bean is ready for use! Jasonplus
+2015-01-14 17:02:21,sheetNum: 3
+2015-01-14 17:02:21,current process sheet: 3
+2015-01-14 17:04:11,sheetNum: 3
+2015-01-14 17:04:11,current process sheet: 3
+2015-01-14 17:07:49,sheetNum: 3
+2015-01-14 17:07:49,current process sheet: 3
+2015-01-14 17:16:24,sheetNum: 3
+2015-01-14 17:16:24,current process sheet: 3
+2015-01-14 17:19:24,sheetNum: 3
+2015-01-14 17:19:24,current process sheet: 3
+2015-01-14 17:25:16,sheetNum: 3
+2015-01-14 17:25:16,current process sheet: 3
+2015-01-14 18:15:03,current process sheet: 3
+2015-01-14 18:15:03,current process sheet: 3
+2015-01-14 18:23:47,sheetNum: 3
+2015-01-14 18:23:47,current process sheet: 3

@@ -14,10 +14,7 @@ public class AmazonExcelParser extends AbstractExcelParser{
     @Override
     public Item parseItem(HSSFRow row) {
         // ASIN
-        HSSFCell cell = row.getCell(0);
-        String asin = cell.getStringCellValue();
-        // Binding
-        cell = row.getCell(1);
+        HSSFCell cell = row.getCell(1);
         String binding = cell.getStringCellValue();
         // Category
         cell = row.getCell(2);
@@ -27,7 +24,6 @@ public class AmazonExcelParser extends AbstractExcelParser{
         String title = cell.getStringCellValue();
         
         AmazonItem item = new AmazonItem();
-        item.setAsin(asin);
         item.setBinding(binding);
         item.setCategory(category);
         item.setTitle(title);

@@ -1,10 +1,9 @@
-package me.arthinking.excel;
+package me.arthinking.excel.demo;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import me.arthinking.excel.parser.AmazonExcelParser;
 import me.arthinking.excel.reader.ExcelFileReader;
 
 public class AmazonTest {

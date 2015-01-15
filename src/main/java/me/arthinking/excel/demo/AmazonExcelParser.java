@@ -1,7 +1,7 @@
-package me.arthinking.excel.parser;
+package me.arthinking.excel.demo;
 
-import me.arthinking.excel.item.AmazonItem;
 import me.arthinking.excel.item.Item;
+import me.arthinking.excel.parser.AbstractExcelParser;
 import me.arthinking.excel.persistent.PersistentService;
 
 import org.apache.log4j.Logger;

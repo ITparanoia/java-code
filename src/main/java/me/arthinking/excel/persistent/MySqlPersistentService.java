@@ -31,7 +31,7 @@ public class MySqlPersistentService implements PersistentService{
     }
 
     @Override
-    public void batchCombineSave(List<Item> itemList) throws SQLException {
+    public void batchMultiSave(List<Item> itemList) throws SQLException {
         if(itemList.size() <= 0) return;
         Connection connection = MySql.getConnection();
         StringBuilder sql = new StringBuilder(itemList.get(0).getInsertSqlPre());
@@ -45,4 +45,10 @@ public class MySqlPersistentService implements PersistentService{
         
     }
 
+    @Override
+    public void batchFiledSave(String filePath) {
+        // TODO Auto-generated method stub
+        
+    }
+    
 }

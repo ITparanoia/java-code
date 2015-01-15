@@ -14,7 +14,13 @@ public class SpringPersistentService implements PersistentService{
     }
 
     @Override
-    public void batchCombineSave(List<Item> itemList) throws SQLException {
+    public void batchMultiSave(List<Item> itemList) throws SQLException {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void batchFiledSave(String filePath) {
         // TODO Auto-generated method stub
         
     }

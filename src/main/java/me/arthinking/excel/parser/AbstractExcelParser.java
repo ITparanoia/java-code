@@ -4,22 +4,21 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import me.arthinking.excel.item.Item;
 import me.arthinking.excel.persistent.MySqlPersistentService;
 import me.arthinking.excel.persistent.PersistentService;
-
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-public abstract class AbstractExcelParser {
+public abstract class AbstractExcelParser implements ExcelParser{
 
     protected static Logger logger = Logger.getLogger("access");
     
     PersistentService persistentService = new MySqlPersistentService();
     
+    @Override
     public void setPersistentService(PersistentService persistentService){
         this.persistentService = persistentService;
     }
@@ -32,6 +31,7 @@ public abstract class AbstractExcelParser {
      * @author Jason Peng
      * @update date 2015年1月14日
      */
+    @Override
     public abstract Item parseItem(HSSFRow row);
     
     /**
@@ -43,6 +43,7 @@ public abstract class AbstractExcelParser {
      * @throws IOException 
      * @update date 2015年1月14日
      */
+    @Override
     public void parseFile(HSSFWorkbook workbook) throws SQLException{
         int sheetNum = workbook.getNumberOfSheets();
         logger.info("sheetNum: " + sheetNum);
@@ -62,39 +63,13 @@ public abstract class AbstractExcelParser {
                     if(itemList.size() <= 1000){
                         itemList.add(item);
                     } else {
-                        persistentService.batchCombineSave(itemList);
+                        persistentService.batchMultiSave(itemList);
+                        // persistentService.batchSave(itemList);
                         itemList.clear();
                     }
                 }
             }
         }
     }
-    
-    /*
-    public void parseFile(HSSFWorkbook workbook) throws SQLException, IOException{
-        int sheetNum = workbook.getNumberOfSheets();
-        logger.info("sheetNum: " + sheetNum);
-        HSSFRow row = null;
-        FileOutputStream out = null;
-        out = new FileOutputStream(new File("D:/test_script.sql"));
-        for(int k=0; k<2000; k++){
-            HSSFSheet sheet = workbook.getSheetAt(k);
-            int totalSize = sheet.getLastRowNum();
-            logger.info("current process sheet: " + sheetNum);
-            if(totalSize <= 0){
-                continue;
-            }
-            List<Item> itemList = new ArrayList<Item>();
-            for(int i = 1; i < totalSize; i++){
-                row = sheet.getRow(i);
-                if(row != null){
-                    Item item = parseItem(row);
-                    // 写文件到目标文件
-                    out.write("".getBytes());
-                }
-            }
-        }
-    }
-    */
     
 }

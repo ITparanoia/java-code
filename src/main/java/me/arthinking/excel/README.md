@@ -13,7 +13,7 @@
 https://raw.githubusercontent.com/arthinking/arthinking.github.io/master/images/2015/01/20150115-excel-parser01.png)    
 
 对应的Item实现如下：    
-```
+```java
 public class AmazonItem implements Item{
 
     /**
@@ -88,7 +88,7 @@ public class AmazonItem implements Item{
 
 ###3、编写解析业务
 然后继承 AbstractExcelParser 实现自定义的Excel解析器，实现一行数据解析的业务代码，从而生成一个对象，对应一条记录：     
-```
+```java
 public class AmazonExcelParser extends AbstractExcelParser{
 
     protected static Logger logger = Logger.getLogger("access");
@@ -116,7 +116,7 @@ public class AmazonExcelParser extends AbstractExcelParser{
 ```
 
 ###4、调用
-```
+```java
 // 创建数据表解析类
 AmazonExcelParser excelParser = new AmazonExcelParser();
 // 使用文件读取器解析文件

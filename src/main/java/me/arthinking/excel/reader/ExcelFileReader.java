@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.sql.SQLException;
 
 import me.arthinking.excel.parser.AbstractExcelParser;
+import me.arthinking.excel.parser.ExcelParser;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
@@ -17,11 +18,11 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  */
 public class ExcelFileReader {
 
-    private AbstractExcelParser parser;
+    private ExcelParser parser;
     
     private InputStream inputStream = null;
     
-    public ExcelFileReader(AbstractExcelParser parser){
+    public ExcelFileReader(ExcelParser parser){
         this.parser = parser;
     }
     

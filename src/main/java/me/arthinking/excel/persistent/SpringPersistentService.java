@@ -1,5 +1,6 @@
 package me.arthinking.excel.persistent;
 
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class SpringPersistentService implements PersistentService{
     }
 
     @Override
-    public void batchFiledSave(String filePath) {
+    public void filebatchSave(InputStream is, String sqlScript) {
         // TODO Auto-generated method stub
         
     }

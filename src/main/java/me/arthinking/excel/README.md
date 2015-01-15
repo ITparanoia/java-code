@@ -26,7 +26,7 @@ public class AmazonItem implements Item{
     
     @Override
     public String getInsertSqlPreparedStatement() {
-        return "INSERT amazon_item(asin,binding,category,title) VALUES(?,?,?)";
+        return "INSERT amazon_item(binding,category,title) VALUES(?,?,?)";
     }
     
     @Override
@@ -36,7 +36,7 @@ public class AmazonItem implements Item{
 
     @Override
     public void appendInsertValue(StringBuilder sb) {
-        sb.append("'" + StringEscapeUtils.escapeSql(this.getBinding()) + 
+        sb.append("('" + StringEscapeUtils.escapeSql(this.getBinding()) + 
                 "'," + this.getCategory() + ",'" + StringEscapeUtils.escapeSql(this.getTitle()) +"')");
     }
 
@@ -47,6 +47,24 @@ public class AmazonItem implements Item{
         statement.setString(3, this.getTitle());
     }
     
+
+    @Override
+    public String getItemScript() {
+        String script = "'" + StringEscapeUtils.escapeSql(this.binding) + "'," 
+                            + this.category + ",'" 
+                            + StringEscapeUtils.escapeSql(this.title) + "'\r\n";
+        return script;
+    }
+    
+    /**
+     * LOAD DATA INFILE 'D:\\temp.db' IGNORE INTO TABLE amazon_item CHARACTER SET utf8 FIELDS TERMINATED BY ',' ENCLOSED BY '\'' LINES TERMINATED BY '\r\n' (`binding`,`category`,`title`)
+     */
+    @Override
+    public String getLoadDataScript() {
+        String script = "load data infile 'D:\\\\temp.db' ignore into table amazon_item character set utf8 fields terminated by ',' enclosed by '''' lines terminated by '\\r\\n' (`binding`,`category`,`title`)";
+        return script;
+    }
+
     public long getId() {
         return id;
     }
@@ -78,7 +96,7 @@ public class AmazonItem implements Item{
     public void setTitle(String title) {
         this.title = title;
     }
-    
+   
 }
 ```
 
@@ -87,15 +105,15 @@ public class AmazonItem implements Item{
 另外需要根据数据行实体创建对应的数据表
 
 ###3、编写解析业务
-然后继承 AbstractExcelParser 实现自定义的Excel解析器，实现一行数据解析的业务代码，从而生成一个对象，对应一条记录：     
+然后实现ParseStrategy实现自定义的解析策略，实现一行数据解析的业务代码，从而生成一个对象，对应一条记录：     
 ```java
-public class AmazonExcelParser extends AbstractExcelParser{
+public class AmazonParseStrategy implements ParseStrategy{
 
     protected static Logger logger = Logger.getLogger("access");
     
     @Override
-    Item parseItem(HSSFRow row) {
-        // Binding
+    public Item parseItem(HSSFRow row) {
+        // ASIN
         HSSFCell cell = row.getCell(1);
         String binding = cell.getStringCellValue();
         // Category
@@ -105,21 +123,29 @@ public class AmazonExcelParser extends AbstractExcelParser{
         cell = row.getCell(9);
         String title = cell.getStringCellValue();
         
-        AmazonItem item = new AmazonItem();
-        item.setBinding(binding);
-        item.setCategory(category);
-        item.setTitle(title);
-        logger.info(title);
+        AmazonItem item = null;
+        if(StringUtils.isNotBlank(title)){
+            item = new AmazonItem();
+            item.setBinding(binding);
+            item.setCategory(category);
+            item.setTitle(title);
+            logger.info(title);
+        }
         return item;
     }
+
 }
 ```
 
 ###4、调用
 ```java
 // 创建数据表解析类
-AmazonExcelParser excelParser = new AmazonExcelParser();
+long start = System.currentTimeMillis();
+// ExcelParser excelParser = new BatchExcelParser(new AmazonParseStrategy());  // 5050 
+ExcelParser excelParser = new FileImportExcelParser(new AmazonParseStrategy());  // 3688
 // 使用文件读取器解析文件
 new ExcelFileReader(excelParser)
     .persistentFile("D://document//amazon.xls");
+long end = System.currentTimeMillis();
+System.out.println("执行时间：" + (end - start));
 ```

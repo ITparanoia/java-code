@@ -40,6 +40,24 @@ public class AmazonItem implements Item{
         statement.setString(3, this.getTitle());
     }
     
+
+    @Override
+    public String getItemScript() {
+        String script = "'" + StringEscapeUtils.escapeSql(this.binding) + "'," 
+                            + this.category + ",'" 
+                            + StringEscapeUtils.escapeSql(this.title) + "'\r\n";
+        return script;
+    }
+    
+    /**
+     * LOAD DATA INFILE 'D:\\temp.db' IGNORE INTO TABLE amazon_item CHARACTER SET utf8 FIELDS TERMINATED BY ',' ENCLOSED BY '\'' LINES TERMINATED BY '\r\n' (`binding`,`category`,`title`)
+     */
+    @Override
+    public String getLoadDataScript() {
+        String script = "load data infile 'D:\\\\temp.db' ignore into table amazon_item character set utf8 fields terminated by ',' enclosed by '''' lines terminated by '\\r\\n' (`binding`,`category`,`title`)";
+        return script;
+    }
+
     public long getId() {
         return id;
     }
@@ -71,5 +89,5 @@ public class AmazonItem implements Item{
     public void setTitle(String title) {
         this.title = title;
     }
-    
+   
 }

@@ -1,5 +1,6 @@
 package me.arthinking.excel.persistent;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,10 +8,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import me.arthinking.excel.item.Item;
 import me.arthinking.excel.persistent.mysql.MySql;
+
+import org.apache.log4j.Logger;
 
 public class MySqlPersistentService implements PersistentService{
     
@@ -42,13 +43,21 @@ public class MySqlPersistentService implements PersistentService{
         logger.info(sql.toString());
         Statement statement = connection.createStatement();
         statement.execute(sql.toString());
-        
-    }
-
-    @Override
-    public void batchFiledSave(String filePath) {
-        // TODO Auto-generated method stub
+        statement.close();
         
     }
     
+    @Override
+    public void filebatchSave(InputStream is, String sqlScript){
+        Connection connection = MySql.getConnection();
+        try {
+            com.mysql.jdbc.Statement statement = (com.mysql.jdbc.Statement)connection.createStatement();
+            statement.setLocalInfileInputStream(is);
+            statement.execute(sqlScript);
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+   
 }

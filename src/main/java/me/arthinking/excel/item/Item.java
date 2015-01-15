@@ -44,4 +44,15 @@ public interface Item {
      */
     void appendInsertValue(StringBuilder sb);
     
+    /**
+     * 获取Item的load data script脚本
+     * @return
+     * String
+     * @author Jason Peng
+     * @update date 2015年1月15日
+     */
+    String getItemScript();
+    
+    String getLoadDataScript();
+    
 }

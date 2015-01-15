@@ -1,5 +1,6 @@
 package me.arthinking.excel.persistent;
 
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -37,10 +38,12 @@ public interface PersistentService {
     
     /**
      * 通过文件的形式导入数据库，更快的写入方法
-     * @param filePath
+     * @param is
+     * @param sqlScript
      * void
      * @author Jason Peng
      * @update date 2015年1月15日
      */
-    void batchFiledSave(String filePath);
+    void filebatchSave(InputStream is, String sqlScript);
+    
 }

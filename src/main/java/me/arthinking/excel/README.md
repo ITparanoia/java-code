@@ -18,7 +18,7 @@
 ![](
 https://raw.githubusercontent.com/arthinking/arthinking.github.io/master/images/2015/01/20150115-excel-parser01.png)    
 
-对应的Item实体如下：    
+对应的Item实体如下，对于现有的数据库实体，可以直接实现Item接口：    
 ```java
 public class AmazonItem implements Item{
 

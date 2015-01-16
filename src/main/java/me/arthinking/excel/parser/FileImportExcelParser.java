@@ -21,16 +21,10 @@ import org.springframework.util.StringUtils;
  */
 public class FileImportExcelParser extends AbstractExcelParser{
 
-    private int batchSize = 1000;
-    
     FileOutputStream out = null; 
 
     public FileImportExcelParser(ParseStrategy strategy) {
         super(strategy);
-    }
-    
-    public void setBatchSize(int batchSize) {
-        this.batchSize = batchSize;
     }
     
     private void beginWriteFile() throws FileNotFoundException{

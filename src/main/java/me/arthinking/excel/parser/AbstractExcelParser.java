@@ -10,7 +10,7 @@ public abstract class AbstractExcelParser implements ExcelParser{
     protected static Logger logger = Logger.getLogger("access");
     
     /**
-     * 默默人使用MySQL的持久化服务
+     * 默认使用MySQL的持久化服务
      */
     PersistentService persistentService = new MySqlPersistentService();
     
@@ -19,6 +19,9 @@ public abstract class AbstractExcelParser implements ExcelParser{
      */
     ParseStrategy strategy;
     
+    /**
+     * 禁止调用无参构造函数，必须初始化策略
+     */
     private AbstractExcelParser(){}
     
     public AbstractExcelParser(ParseStrategy strategy){

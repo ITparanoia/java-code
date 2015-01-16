@@ -44,7 +44,6 @@ public class MySqlPersistentService implements PersistentService{
         Statement statement = connection.createStatement();
         statement.execute(sql.toString());
         statement.close();
-        
     }
     
     @Override

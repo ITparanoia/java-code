@@ -11,10 +11,11 @@ public class SpringContext {
     private static BeanFactory bf;
     
     /** 初始化Spring配置文件 **/
+    
     static {
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        Resource res = resolver.getResource("classpath:me/arthinking/spring/ioc/beans.xml");
-        BeanFactory bf = new XmlBeanFactory(res);
+        Resource res = resolver.getResource("classpath:me/arthinking/excel/beans.xml");
+        bf = new XmlBeanFactory(res);
     }
     
     /**

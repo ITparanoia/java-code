@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 
-import me.arthinking.excel.parser.AbstractExcelParser;
 import me.arthinking.excel.parser.ExcelParser;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -16,7 +15,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  * @author  Jason Peng
  * @create date 2015年1月14日
  */
-public class ExcelFileReader {
+public class ExcelFileReader implements FileReader{
 
     private ExcelParser parser;
     
@@ -37,10 +36,16 @@ public class ExcelFileReader {
      * @throws SQLException 
      * @update date 2015年1月14日
      */
-    public final void persistentFile(String filePath) throws FileNotFoundException, IOException, SQLException {
-        HSSFWorkbook hssfWorkbook = readExcelFile(filePath);
-        this.parseExcel(hssfWorkbook);
-        this.closeInputStream();
+    @Override
+    public final void persistentFile(String filePath) {
+        HSSFWorkbook hssfWorkbook;
+        try {
+            hssfWorkbook = readExcelFile(filePath);
+            this.parseExcel(hssfWorkbook);
+            this.closeInputStream();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
     /**

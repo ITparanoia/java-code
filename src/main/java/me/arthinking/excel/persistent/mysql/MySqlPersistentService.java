@@ -1,4 +1,4 @@
-package me.arthinking.excel.persistent;
+package me.arthinking.excel.persistent.mysql;
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import me.arthinking.excel.item.Item;
-import me.arthinking.excel.persistent.mysql.MySql;
+import me.arthinking.excel.persistent.PersistentService;
 
 import org.apache.log4j.Logger;
 
@@ -24,7 +24,7 @@ public class MySqlPersistentService implements PersistentService{
         String sql = itemList.get(0).getInsertSqlPreparedStatement();   
         PreparedStatement prest = connection.prepareStatement(sql,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);   
         for(int i = 0; i < itemList.size(); i++){
-            itemList.get(i).setInsertSqlParameter(prest);
+            itemList.get(i).setInsertSqlPreparedStatemetParameter(prest);
             prest.addBatch();   
         }
         prest.executeBatch(); 
@@ -52,6 +52,7 @@ public class MySqlPersistentService implements PersistentService{
         Connection connection = MySql.getConnection();
         try {
             com.mysql.jdbc.Statement statement = (com.mysql.jdbc.Statement)connection.createStatement();
+            // 调用改方法确保执行远程数据库成功
             statement.setLocalInfileInputStream(is);
             statement.execute(sqlScript);
             statement.close();

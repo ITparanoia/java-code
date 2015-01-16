@@ -7,9 +7,9 @@
 > [如何将excel表格的数据导入到mysql数据中去](http://jingyan.baidu.com/article/fc07f9891cb56412ffe5199a.html "如何将excel表格的数据导入到mysql数据中去")    
 > [从phpMyAdmin批量导入Excel内容到MySQL](http://jingyan.baidu.com/album/5225f26b12d968e6fb090857.html "从phpMyAdmin批量导入Excel内容到MySQL")    
 
-以上导入的原理都是一样的，该项目亦可通过load data导入数据到库，方便自定义解析Excel文件，适合Excel文件过大不方便编辑和需要根据特定业务导入的场景。
+以上导入的原理都是一样的，该项目亦可通过FileImportExcelParser的load data支持导入数据到库，方便自定义解析Excel文件，适合Excel文件过大不方便编辑和需要根据特定业务导入的场景。
     
-局限：只适合插入简单格式的数据，一行对应一个对象，不适用于复杂的业务。    
+局限：只适合插入简单格式的数据，一行对应一个对象，不适用于复杂的业务。
 
 ##使用说明
 ###1、创建行数据实体

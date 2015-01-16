@@ -81,6 +81,7 @@ public class FileImportExcelParser extends AbstractExcelParser{
             FileInputStream is = new FileInputStream(new File("D://temp.db"));
             // 执行批量导入操作
             this.persistentService.filebatchSave(is, loadDataScript);
+            is.close();
             
         } catch (Exception e) {
             e.printStackTrace();

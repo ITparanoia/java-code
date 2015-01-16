@@ -22,7 +22,7 @@ public interface Item {
      * @author Jason Peng
      * @update date 2015年1月15日
      */
-    void setInsertSqlParameter(PreparedStatement statement) throws SQLException;
+    void setInsertSqlPreparedStatemetParameter(PreparedStatement statement) throws SQLException;
     
     /**
      * 获取合并方式导入的插入sql语句前缀<br />
@@ -53,6 +53,18 @@ public interface Item {
      */
     String getItemScript();
     
+    /**
+     * 获取LoadData的sql脚本<br />
+     * 
+     * 注意SQL语句在Java代码中的"\"和"'"两个字符的转义<br />
+     *     \ --> \\
+     *     ' --> ''
+     *     
+     * @return
+     * String
+     * @author Jason Peng
+     * @update date 2015年1月16日
+     */
     String getLoadDataScript();
     
 }

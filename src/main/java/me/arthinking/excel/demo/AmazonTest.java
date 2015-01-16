@@ -1,16 +1,12 @@
 package me.arthinking.excel.demo;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.sql.SQLException;
-
 import me.arthinking.excel.parser.ExcelParser;
 import me.arthinking.excel.parser.FileImportExcelParser;
 import me.arthinking.excel.reader.ExcelFileReader;
 
 public class AmazonTest {
 
-    public static void main(String[] args) throws FileNotFoundException, IOException, SQLException {
+    public static void main(String[] args) {
         long start = System.currentTimeMillis();
         // 创建数据表解析类
         // ExcelParser excelParser = new BatchExcelParser(new AmazonParseStrategy());  // 5050 

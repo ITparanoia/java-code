@@ -7,6 +7,11 @@ import me.arthinking.excel.item.Item;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
+/**
+ * 业务实体，现有的业务实体可以直接继承Item接口，实现重要的方法
+ * @author  Jason Peng
+ * @create date 2015年1月16日
+ */
 public class AmazonItem implements Item{
 
     /**
@@ -21,6 +26,13 @@ public class AmazonItem implements Item{
     public String getInsertSqlPreparedStatement() {
         return "INSERT amazon_item(binding,category,title) VALUES(?,?,?)";
     }
+
+    @Override
+    public void setInsertSqlPreparedStatemetParameter(PreparedStatement statement) throws SQLException{
+        statement.setString(1, this.getBinding());
+        statement.setInt(2, this.getCategory());
+        statement.setString(3, this.getTitle());
+    }
     
     @Override
     public String getInsertSqlPre() {
@@ -34,14 +46,6 @@ public class AmazonItem implements Item{
     }
 
     @Override
-    public void setInsertSqlParameter(PreparedStatement statement) throws SQLException{
-        statement.setString(1, this.getBinding());
-        statement.setInt(2, this.getCategory());
-        statement.setString(3, this.getTitle());
-    }
-    
-
-    @Override
     public String getItemScript() {
         String script = "'" + StringEscapeUtils.escapeSql(this.binding) + "'," 
                             + this.category + ",'" 
@@ -51,6 +55,9 @@ public class AmazonItem implements Item{
     
     /**
      * LOAD DATA INFILE 'D:\\temp.db' IGNORE INTO TABLE amazon_item CHARACTER SET utf8 FIELDS TERMINATED BY ',' ENCLOSED BY '\'' LINES TERMINATED BY '\r\n' (`binding`,`category`,`title`)
+     * 注意SQL语句在Java代码中的"\"和"'"两个字符的转义<br />
+     *     \ --> \\
+     *     ' --> ''
      */
     @Override
     public String getLoadDataScript() {

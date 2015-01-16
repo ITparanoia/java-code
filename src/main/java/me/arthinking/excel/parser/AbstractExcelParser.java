@@ -1,7 +1,7 @@
 package me.arthinking.excel.parser;
 
-import me.arthinking.excel.persistent.MySqlPersistentService;
 import me.arthinking.excel.persistent.PersistentService;
+import me.arthinking.excel.persistent.mysql.MySqlPersistentService;
 
 import org.apache.log4j.Logger;
 

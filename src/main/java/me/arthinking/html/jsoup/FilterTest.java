@@ -18,11 +18,12 @@ public class FilterTest {
     private final static Whitelist user_content_filter = Whitelist.relaxed();
     
     static {
-        user_content_filter.addTags("style");
-        // user_content_filter.addAttributes(":all", "style", "class", "id", "name");
-        // user_content_filter.addAttributes("object", "width", "height","classid","codebase");    
-        // user_content_filter.addAttributes("param", "name", "value");
-        // user_content_filter.addAttributes("embed", "src","quality","width","height","allowFullScreen","allowScriptAccess","flashvars","name","type","pluginspage");
+    	// http://jsoup.org/cookbook/cleaning-html/whitelist-sanitizer
+        // user_content_filter.addTags("style");
+        user_content_filter.addAttributes(":all", "style", "class", "id", "name");
+        user_content_filter.addAttributes("object", "width", "height","classid","codebase");    
+        user_content_filter.addAttributes("param", "name", "value");
+        user_content_filter.addAttributes("embed", "src","quality","width","height","allowFullScreen","allowScriptAccess","flashvars","name","type","pluginspage");
     }
 
     /**
@@ -57,6 +58,6 @@ public class FilterTest {
         }  
         in.close();  
         
-        System.out.println(filterUserInputContent(temp.toString()));
+        System.out.println(filterUserInputContent("<blockquote style=\"asadfjalsdf\">sdf</blockquote><script></script>ab<STYLE >s</style><div id=\"123\">asdf</div>"));
     }
 }

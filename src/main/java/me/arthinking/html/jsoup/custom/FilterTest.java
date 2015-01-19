@@ -20,7 +20,7 @@ public class FilterTest {
                 + "ab"
                 + "<STYLE >s</style>"
                 + "<b style=\"jav&#x0A;ascript:alert('XSS')\">Embedded carriage</b>"
-                + "<div style=\"Javaas   crbipt:abc\" id=\"123\">space</div>"
+                + "<div style=\"Javas   cript:abc\" id=\"123\">space</div>"
                 + "<div style=\"java\0script:alert(\"XSS\")\">Null breaks up JavaScript directive</div>"
                 + "</body>";
         // System.out.println(Jsoup.clean(html, htmlFilter));

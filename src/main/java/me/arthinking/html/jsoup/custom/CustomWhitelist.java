@@ -53,7 +53,8 @@ public class CustomWhitelist extends Whitelist{
             String value = attr.getValue().replaceAll(" ", "").toLowerCase();
             if(value.contains("javascript") 
                     || value.contains("script")
-                    || value.contains("alert")){
+                    || value.contains("alert")
+                    || value.contains("expression")){
                 return false;
             }
             

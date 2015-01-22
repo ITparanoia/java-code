@@ -45,7 +45,7 @@ public class MyWhitelistSetting extends AbstractWhitelistSetting{
     }
     
     /**
-     * 可以从网络，文件或者数据读取，这里暂时写上mockdata
+     * 可以从网络，文件或者数据库读取，这里暂时写上mock data
      */
     @Override
     public Settings reloadSetting() {

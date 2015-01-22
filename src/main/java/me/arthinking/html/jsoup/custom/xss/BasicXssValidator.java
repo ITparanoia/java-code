@@ -24,8 +24,8 @@ public class BasicXssValidator implements XssValidator{
             if(value.contains("javascript") 
                     || value.contains("script")
                     || value.contains("alert")
-                    || value.contains("vbscript")
-                    || value.contains("livescript")
+                    // || value.contains("vbscript")
+                    // || value.contains("livescript")
                     || value.contains("expression")){
                 return false;
             }

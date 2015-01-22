@@ -5,8 +5,8 @@
 ##使用方式
 ###1、编写自己的白名单设置类
 该类继承AbstractWhitelistSetting，需要实现如下接口：
-> `initCommonSetting(Whitelist whitelist)`: 具体实现的应用根据自己的需求设置默认的白名单
-> `reloadSetting()`: 实现重新加载配置    
+> `initCommonSetting(Whitelist whitelist)`: 具体实现的应用根据自己的需求设置默认的白名单    
+> `reloadSetting()`: 实现重新加载配置        
 
 ```java
 public class MyWhitelistSetting extends AbstractWhitelistSetting{

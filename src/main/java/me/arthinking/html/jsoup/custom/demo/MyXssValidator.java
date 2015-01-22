@@ -14,7 +14,7 @@ public class MyXssValidator implements XssValidator{
 
     @Override
     public boolean validateAttribute(Attribute attr) {
-        if(attr.getKey().equals("style") || attr.getKey().equals("href")){
+        if(attr.getKey().equals("style") || attr.getKey().equals("href") || attr.getKey().equals("src")){
             String value = attr.getValue().replaceAll(" ", "")
                                           .replaceAll("\\r", "")
                                           .replaceAll("\\n", "")

@@ -1,46 +1,68 @@
 package me.arthinking.html.jsoup.custom;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import me.arthinking.html.jsoup.custom.demo.MyXssValidator;
+import me.arthinking.html.jsoup.custom.setting.Settings;
+import me.arthinking.html.jsoup.custom.setting.WhitelistSetting;
+import me.arthinking.html.jsoup.custom.xss.XssValidator;
+
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Element;
 import org.jsoup.safety.Whitelist;
 
+/**
+ * singleton, call refreshSetting() when need refresh the whitelist setting.
+ * @author  Jason Peng
+ * @create date 2015-01-22
+ */
 public class CustomWhitelist extends Whitelist{
 
-    /**
-     * relax whiteList
-     * This whitelist allows a full range of text and structural body HTML: <code>a, b, blockquote, br, caption, cite,
-     * code, col, colgroup, dd, div, dl, dt, em, h1, h2, h3, h4, h5, h6, i, img, li, ol, p, pre, q, small, span, strike, strong, sub,
-     * sup, table, tbody, td, tfoot, th, thead, tr, u, ul</code>
-     * <p/>
-     * Links do not have an enforced <code>rel=nofollow</code> attribute, but you can add that if desired.
-     */
-    public CustomWhitelist() {
-        this.addTags(
-                "a", "b", "blockquote", "br", "caption", "cite", "code", "col",
-                "colgroup", "dd", "div", "dl", "dt", "em", "h1", "h2", "h3", "h4", "h5", "h6",
-                "i", "img", "li", "ol", "p", "pre", "q", "small", "span", "strike", "strong",
-                "sub", "sup", "table", "tbody", "td", "tfoot", "th", "thead", "tr", "u",
-                "ul")
+    private WhitelistSetting whitelistSetting = null;
+    
+    private List<XssValidator> validators = new ArrayList<XssValidator>();
 
-        .addAttributes("a", "href", "title")
-        .addAttributes("blockquote", "cite")
-        .addAttributes("col", "span", "width")
-        .addAttributes("colgroup", "span", "width")
-        .addAttributes("img", "align", "alt", "height", "src", "title", "width")
-        .addAttributes("ol", "start", "type")
-        .addAttributes("q", "cite")
-        .addAttributes("table", "summary", "width")
-        .addAttributes("td", "abbr", "axis", "colspan", "rowspan", "width")
-        .addAttributes(
-                "th", "abbr", "axis", "colspan", "rowspan", "scope",
-                "width")
-        .addAttributes("ul", "type")
-        .addProtocols("a", "href", "ftp", "http", "https", "mailto")
-        .addProtocols("blockquote", "cite", "http", "https")
-        .addProtocols("cite", "cite", "http", "https")
-        .addProtocols("img", "src", "http", "https")
-        .addProtocols("q", "cite", "http", "https")
-        ;
+    /**
+     * validate if the HTML is legal
+     */
+    private boolean isValid = true;
+    private CustomWhitelist(){}
+
+    /**
+     * constructor 
+     * @param whitelistSetting
+     */
+    public CustomWhitelist(WhitelistSetting whitelistSetting){
+        XssValidator validator = new MyXssValidator();
+        this.addXssValidator(validator);
+        this.whitelistSetting = whitelistSetting;
+    }
+    
+    /**
+     * call this method for init setting after instance or update setting source
+     * void
+     * @author Jason Peng
+     * @update date 2015-01-22
+     */
+    public void refreshSetting(){
+        // load settings
+        Settings settings = this.whitelistSetting.reloadSetting();
+        // init settings
+        this.whitelistSetting.refresh(this, settings);
+    }
+
+    /**
+     * add custom implement xssValidator, use these validators when call 
+     * org.jsoup.safety.Cleaner.clean(Document dirtyDocument)
+     * 
+     * @param xssValidator
+     * void
+     * @author Jason Peng
+     * @update date 2015年1月22日
+     */
+    public void addXssValidator(XssValidator xssValidator){
+        this.validators.add(xssValidator);
     }
     
     /**
@@ -57,27 +79,16 @@ public class CustomWhitelist extends Whitelist{
      *       style样式表禁止expression属性，禁止链接，防止远程样式表或脚本注入
      *   - 各种标签的事件属性
      * 
-     * 
-     * 
      * jsoup只对设置了协议的属性进行过滤，只能判断跳转的协议是否合法，协议后的字符串注入不理会，这里需要处理下
      *     在 Cleaner.copySafeNodes()里面获取安全的HTML
      * 
      */
     @Override
     protected boolean isSafeAttribute(String tagName, Element el, Attribute attr) {
-        if(attr.getKey().equals("style") || attr.getKey().equals("href")){
-            String value = attr.getValue().replaceAll(" ", "")
-                                          .replaceAll("\\r", "")
-                                          .replaceAll("\\n", "")
-                                          .replaceAll("\\*", "")
-                                          .toLowerCase();
-            if(value.contains("javascript") 
-                    || value.contains("script")
-                    || value.contains("alert")
-                    || value.contains("expression")){
+        for(XssValidator xssValidator : validators){
+            if(!xssValidator.validateAttribute(attr)){
                 return false;
             }
-            
         }
         return super.isSafeAttribute(tagName, el, attr);
     }
@@ -85,9 +96,14 @@ public class CustomWhitelist extends Whitelist{
     @Override
     protected boolean isSafeTag(String tag) {
         if(!super.isSafeTag(tag)){
-            // 校验失败，返回校验结果
+            // find unsafe tag
+            isValid = false;
         }
         return super.isSafeTag(tag);
     }
-    
+
+    public boolean isValid() {
+        return isValid;
+    }
+
 }

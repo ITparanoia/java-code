@@ -87,6 +87,7 @@ public class CustomWhitelist extends Whitelist{
     protected boolean isSafeAttribute(String tagName, Element el, Attribute attr) {
         for(XssValidator xssValidator : validators){
             if(!xssValidator.validateAttribute(attr)){
+                isValid = false;
                 return false;
             }
         }
@@ -98,6 +99,7 @@ public class CustomWhitelist extends Whitelist{
         if(!super.isSafeTag(tag)){
             // find unsafe tag
             isValid = false;
+            return false;
         }
         return super.isSafeTag(tag);
     }

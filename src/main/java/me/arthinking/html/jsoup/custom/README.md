@@ -145,7 +145,7 @@ public class MyXssValidator implements XssValidator{
 
 ###3、在调用的地方使用
 
-```
+```java
 // 创建配置类
 WhitelistSetting whitelistSetting = new MyWhitelistSetting();
 // 创建自定义白名单

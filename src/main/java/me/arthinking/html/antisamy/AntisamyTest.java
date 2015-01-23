@@ -1,5 +1,12 @@
 package me.arthinking.html.antisamy;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.owasp.validator.html.AntiSamy;
 import org.owasp.validator.html.CleanResults;
 import org.owasp.validator.html.Policy;
@@ -20,7 +27,7 @@ public class AntisamyTest {
     	long start = System.currentTimeMillis();
         String html = ""
                 + "<body>"
-        		+ "<div class='abc' style='text-align:left; width:100px; height:200px;'>"
+        		+ "<div class='abc' style='font-family:\"宋体\",Times New Roman,Georgia,Serif;box-shadow:2px 2px 5px #333333;text-align:left; width:100px; height:200px;'>"
                 + 	"<div>"
                 + 	"<div>"
                 + 	"<div>"
@@ -155,7 +162,22 @@ public class AntisamyTest {
                 + "<img src=\"http://www.google.com/*,ssd\" />"
                 + "<img src=\"&#0000106&#0000097&#0000118&#0000097&#0000115#0000108&#0000101&#0000114&#0000116&#0000040&#0000039&#0000088&#0000083&#0000083&#0000039&#0000041\" />"
                 + "</body>";
-    	CleanResults cr = as.scan(html, policy);
+        StringBuffer content = new StringBuffer();
+        try {
+            // 新建URL对象
+            URL u = new URL("http://best.pconline.com.cn/shaiwu/117468.html");
+            InputStream in = new BufferedInputStream(u.openStream());
+            InputStreamReader theHTML = new InputStreamReader(in, "UTF8");
+            int c;
+            while ((c = theHTML.read()) != -1) {
+                content.append((char) c);
+            }
+        } catch (MalformedURLException e) {
+            System.err.println(e);
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+    	CleanResults cr = as.scan(content.toString(), policy);
     	System.out.println(cr.getCleanHTML());
     	long end = System.currentTimeMillis();
     	System.out.println(end - start);

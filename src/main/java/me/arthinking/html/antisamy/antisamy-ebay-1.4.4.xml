@@ -13,7 +13,7 @@ http://www.w3.org/TR/html401/struct/global.html
 	<directives>
 		<directive name="omitXmlDeclaration" value="true"/>
 		<directive name="omitDoctypeDeclaration" value="true"/>
-		<directive name="maxInputSize" value="20000"/>
+		<directive name="maxInputSize" value="200000"/>
 		<directive name="useXHTML" value="true"/>
 		<directive name="formatOutput" value="true"/>
 
@@ -2370,6 +2370,9 @@ http://www.w3.org/TR/html401/struct/global.html
 			</category-list>
 			<!-- allowing only generic font families -->
 			<literal-list>
+			    <!--  
+			    <literal value="宋体"/>
+			    -->
 				<literal value="serif"/>
 				<literal value="arial"/>
 				<literal value="lucida console"/>
@@ -2382,6 +2385,9 @@ http://www.w3.org/TR/html401/struct/global.html
 
 
 			<regexp-list>
+			    <!--  
+			    <regexp name="anything"/>
+			    -->
 				<regexp value="[\w,\-&apos;&quot; ]+"/>
 			</regexp-list>
 
@@ -2427,6 +2433,20 @@ http://www.w3.org/TR/html401/struct/global.html
 				<literal value="inherit"/>
 			</literal-list>
 		</property>
+		
+		<!--  
+        <property name="box-shadow" description="box-shadow">
+            <category-list>
+                <category value="visual"/>
+            </category-list>
+            <literal-list>
+            </literal-list>
+            <regexp-list>
+                <regexp name="anything"/>
+            </regexp-list>
+        </property>
+        -->
+        
 		<property name="voice-family" description="The value is a comma-separated, prioritized list of voice family names (compare with 'font-family').">
 			<category-list>
 				<category value="aural"/>

@@ -2,4 +2,5 @@ eclipse.preferences.version=1
 encoding//src/main/java/log4j.properties=UTF-8
 encoding//src/main/java/me/arthinking/encrypt/des/CertificateCoder2.java=UTF-8
 encoding//src/main/java/me/arthinking/encrypt/des/TestEnrypt.java=UTF-8
+encoding//src/main/java/me/arthinking/html/antisamy/antisamy-ebay-1.4.4.xml=UTF-8
 encoding/<project>=UTF-8

@@ -1,5 +1,12 @@
 package me.arthinking.html.jsoup.custom.demo;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import me.arthinking.html.jsoup.custom.CustomWhitelist;
 import me.arthinking.html.jsoup.custom.setting.WhitelistSetting;
 
@@ -90,8 +97,23 @@ public class FilterTest {
         // html = "<a href=''></a>";
         // html="<div style='background:url(\"/i/eg_bg_03.gif\")'>test</div>";
         // html = "background-image:\0075\0072\006C\0028'\006a\0061\0076\0061\0073\0063\0072\0069\0070\0074\003a\0061\006c\0065\0072\0074\0028.1027\0058.1053\0053\0027\0029'\0029";
+        StringBuffer content = new StringBuffer();
+        try {
+            // 新建URL对象
+            URL u = new URL("http://best.pconline.com.cn/shaiwu/117468.html");
+            InputStream in = new BufferedInputStream(u.openStream());
+            InputStreamReader theHTML = new InputStreamReader(in, "UTF8");
+            int c;
+            while ((c = theHTML.read()) != -1) {
+                content.append((char) c);
+            }
+        } catch (MalformedURLException e) {
+            System.err.println(e);
+        } catch (IOException e) {
+            System.err.println(e);
+        }
         long start = System.currentTimeMillis();
-        Document dirty = Parser.parseBodyFragment(html, "");
+        Document dirty = Parser.parseBodyFragment(content.toString(), "");
         Cleaner cleaner = new Cleaner(htmlFilter);
         Document clean = cleaner.clean(dirty);
         System.out.println(clean.html());

@@ -24,6 +24,7 @@ public class MyWhitelistSetting extends AbstractWhitelistSetting{
                 "ul")
 
         .addAttributes("a", "href", "title")
+        .addAttributes("div", "style")
         .addAttributes("blockquote", "cite")
         .addAttributes("col", "span", "width")
         .addAttributes("colgroup", "span", "width")

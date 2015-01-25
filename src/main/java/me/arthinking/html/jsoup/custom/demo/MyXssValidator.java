@@ -7,14 +7,8 @@ import org.jsoup.nodes.Attribute;
 public class MyXssValidator implements XssValidator{
 
     @Override
-    public boolean validateTag(String tagName) {
-        // throw new NotImplementedException();
-        return true;
-    }
-
-    @Override
     public boolean validateAttribute(Attribute attr) {
-        if(attr.getKey().equals("style") || attr.getKey().equals("href") || attr.getKey().equals("src")){
+        if(attr.getKey().equals("style")){
             String value = attr.getValue().replaceAll(" ", "")
                                           .replaceAll("\\r", "")
                                           .replaceAll("\\n", "")

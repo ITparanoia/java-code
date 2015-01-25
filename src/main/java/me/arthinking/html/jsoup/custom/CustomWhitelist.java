@@ -3,9 +3,9 @@ package me.arthinking.html.jsoup.custom;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.arthinking.html.jsoup.custom.demo.MyXssValidator;
 import me.arthinking.html.jsoup.custom.setting.Settings;
 import me.arthinking.html.jsoup.custom.setting.WhitelistSetting;
+import me.arthinking.html.jsoup.custom.xss.BasicXssValidator;
 import me.arthinking.html.jsoup.custom.xss.XssValidator;
 
 import org.jsoup.nodes.Attribute;
@@ -25,6 +25,7 @@ public class CustomWhitelist extends Whitelist{
 
     /**
      * validate if the HTML is legal
+     * this must use threadlocal to fixed multi thread error data problem
      */
     private boolean isValid = true;
     private CustomWhitelist(){}
@@ -34,7 +35,7 @@ public class CustomWhitelist extends Whitelist{
      * @param whitelistSetting
      */
     public CustomWhitelist(WhitelistSetting whitelistSetting){
-        XssValidator validator = new MyXssValidator();
+        XssValidator validator = new BasicXssValidator();
         this.addXssValidator(validator);
         this.whitelistSetting = whitelistSetting;
     }
@@ -91,17 +92,23 @@ public class CustomWhitelist extends Whitelist{
                 return false;
             }
         }
-        return super.isSafeAttribute(tagName, el, attr);
+        boolean result = super.isSafeAttribute(tagName, el, attr);
+        if(!result){
+        	isValid = false;
+            return false;
+        }
+        return result;
     }
 
     @Override
     protected boolean isSafeTag(String tag) {
-        if(!super.isSafeTag(tag)){
+    	boolean result = super.isSafeTag(tag);
+        if(!result){
             // find unsafe tag
             isValid = false;
             return false;
         }
-        return super.isSafeTag(tag);
+        return result;
     }
 
     public boolean isValid() {

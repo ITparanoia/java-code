@@ -2,8 +2,8 @@ package me.arthinking.html.jsoup.custom.demo;
 
 import me.arthinking.html.jsoup.custom.CustomWhitelist;
 import me.arthinking.html.jsoup.custom.setting.WhitelistSetting;
+import me.arthinking.html.jsoup.custom.xss.UrlXssValidator;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
 import org.jsoup.safety.Cleaner;
@@ -18,70 +18,16 @@ public class FilterTest {
         // 刷新加载配置
         htmlFilter.refreshSetting();
         // 添加自定义XSS过滤器
+        htmlFilter.addXssValidator(new UrlXssValidator());
         htmlFilter.addXssValidator(new MyXssValidator());
         String html = ""
                 + "<body>"
-                + "jaksjl<blockquote style=\"asadfjalsdf\">sdf</blockquote>"
-                + "<script></script>"
+                + "jaksjl<blockquote>sdf</blockquote>"
                 + "ab"
-                + "<a href=\"http://www.google.com/<abc>\">test</a>"
                 + "<STYLE >s<abc></style>"
                 + "<text>sfss>sdf</text>"
-                + "<b style=\"jav&#x0A;ascript:alert('XSS')\">Embedded carriage</b>"
-                + "<div style=\"Javas   cript:abc\" id=\"123\">space</div>"
-                + "<div style=\"java\0script:alert(\"XSS\")\">Null breaks up JavaScript directive</div>"
-                + "<img src=\"http://www.google.com/*,ssd\" />"
-                + "jaksjl<blockquote style=\"asadfjalsdf\">sdf</blockquote>"
-                + "<script></script>"
-                + "ab"
-                + "<a href=\"http://www.google.com/<abc>\">test</a>"
-                + "<STYLE >s<abc></style>"
-                + "<text>sfss>sdf</text>"
-                + "<b style=\"jav&#x0A;ascript:alert('XSS')\">Embedded carriage</b>"
-                + "<div style=\"Javas   cript:abc\" id=\"123\">space</div>"
-                + "<div style=\"java\0script:alert(\"XSS\")\">Null breaks up JavaScript directive</div>"
-                + "<img src=\"http://www.google.com/*,ssd\" />"
-                + "jaksjl<blockquote style=\"asadfjalsdf\">sdf</blockquote>"
-                + "<script></script>"
-                + "ab"
-                + "<a href=\"http://www.google.com/<abc>\">test</a>"
-                + "<STYLE >s<abc></style>"
-                + "<text>sfss>sdf</text>"
-                + "<b style=\"jav&#x0A;ascript:alert('XSS')\">Embedded carriage</b>"
-                + "<div style=\"Javas   cript:abc\" id=\"123\">space</div>"
-                + "<div style=\"java\0script:alert(\"XSS\")\">Null breaks up JavaScript directive</div>"
-                + "<img src=\"http://www.google.com/*,ssd\" />"
-                + "jaksjl<blockquote style=\"asadfjalsdf\">sdf</blockquote>"
-                + "<script></script>"
-                + "ab"
-                + "<a href=\"http://www.google.com/<abc>\">test</a>"
-                + "<STYLE >s<abc></style>"
-                + "<text>sfss>sdf</text>"
-                + "<b style=\"jav&#x0A;ascript:alert('XSS')\">Embedded carriage</b>"
-                + "<div style=\"Javas   cript:abc\" id=\"123\">space</div>"
-                + "<div style=\"java\0script:alert(\"XSS\")\">Null breaks up JavaScript directive</div>"
-                + "<img src=\"http://www.google.com/*,ssd\" />"
-                + "jaksjl<blockquote style=\"asadfjalsdf\">sdf</blockquote>"
-                + "<script></script>"
-                + "ab"
-                + "<a href=\"http://www.google.com/<abc>\">test</a>"
-                + "<STYLE >s<abc></style>"
-                + "<text>sfss>sdf</text>"
-                + "<b style=\"jav&#x0A;ascript:alert('XSS')\">Embedded carriage</b>"
-                + "<div style=\"Javas   cript:abc\" id=\"123\">space</div>"
-                + "<div style=\"java\0script:alert(\"XSS\")\">Null breaks up JavaScript directive</div>"
-                + "<img src=\"http://www.google.com/*,ssd\" />"
-                + "jaksjl<blockquote style=\"asadfjalsdf\">sdf</blockquote>"
-                + "<script></script>"
-                + "ab"
-                + "<a href=\"http://www.google.com/<abc>\">test</a>"
-                + "<STYLE >s<abc></style>"
-                + "<text>sfss>sdf</text>"
-                + "<b style=\"jav&#x0A;ascript:alert('XSS')\">Embedded carriage</b>"
-                + "<div style=\"Javas   cript:abc\" id=\"123\">space</div>"
-                + "<div style=\"java\0script:alert(\"XSS\")\">Null breaks up JavaScript directive</div>"
-                + "<img src=\"http://www.google.com/*,ssd\" />"
-                + "<img src=\"&#0000106&#0000097&#0000118&#0000097&#0000115#0000108&#0000101&#0000114&#0000116&#0000040&#0000039&#0000088&#0000083&#0000083&#0000039&#0000041\" />"
+                + "<div style=\"javassccripty:aalbert(123)\">Null breaks up JavaScript directive</div>"
+                + "<img src=\"javascript:alert('XSS')\" />"
                 + "</body>";
         // System.out.println(Jsoup.clean(html, htmlFilter));
         // html += "<div style=\"&#x6A&#x61&#x76&#x61&#x73&#x63&#x72&#x69&#x70&#x74&#x3A&#x61&#x6C&#x65&#x72&#x74&#x28&#x27&#x58&#x53&#x53&#x27&#x29\"></div>";
@@ -97,6 +43,7 @@ public class FilterTest {
         System.out.println(clean.html());
         long end = System.currentTimeMillis();
         System.out.println(end - start);
+        System.out.println(htmlFilter.isValid());
         // System.out.println(htmlFilter.isValid());
         // System.out.println(Jsoup.clean(html, htmlFilter));
         // System.out.println(clean.html());

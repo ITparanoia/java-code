@@ -1,9 +1,16 @@
 package me.arthinking.html.jsoup.custom.xss;
 
+import java.net.URLEncoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.jsoup.nodes.Attribute;
 
 public class BasicXssValidator implements XssValidator{
 
+    private static final Pattern invalidXmlCharacters =
+            Pattern.compile("[\\u0000-\\u001F\\uD800-\\uDFFF\\uFFFE-\\uFFFF&&[^\\u0009\\u000A\\u000D]]");
+    
     /**
      * implements the basic validation, general rule for all attribute
      * @param attr
@@ -14,6 +21,10 @@ public class BasicXssValidator implements XssValidator{
      */
     @Override
     public boolean validateAttribute(Attribute attr) {
+        Matcher matcher = invalidXmlCharacters.matcher(attr.getValue());
+        if(matcher.find()){
+            return false;
+        }
         if(attr.getKey().equals("style")){
             String value = attr.getValue().replaceAll(" ", "")
                                           .replaceAll("\\r", "")

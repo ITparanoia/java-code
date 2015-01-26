@@ -161,3 +161,17 @@ Document clean = cleaner.clean(dirty);
 System.out.println(htmlFilter.isValid());
 System.out.println(Jsoup.clean(html, htmlFilter));
 ```
+
+##关于属性中的编码问题
+###URL中的编码
+URL请求的过程中，一般会使用URLEncode对请求的参数进行一次编码操作
+
+Your browser will encode input, according to the character-set used in your page.
+
+The default character-set in HTML5 is UTF-8.
+
+传到后台之后自动进行解码回原来的字符
+
+
+
+

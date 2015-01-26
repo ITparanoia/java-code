@@ -1,12 +1,5 @@
 package me.arthinking.html.antisamy;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.owasp.validator.html.AntiSamy;
 import org.owasp.validator.html.CleanResults;
 import org.owasp.validator.html.Policy;
@@ -26,20 +19,8 @@ public class AntisamyTest {
     	AntiSamy as = new AntiSamy();
     	long start = System.currentTimeMillis();
         String html = ""
-                + "<body>"
-                + "</div>"
-        		+ "<div>test</div>"
-        		+ "<img class='test' src='http://www.google.com/'/>"
-                + "<a href=\"http://www.google.com/<abc>\">test</a>"
-                + "<STYLE >s<abc></style>"
-                + "<text>sfss>sdf</text>"
-                + "<b style=\"jav&#x0A;ascript:alert('XSS')\">Embedded carriage</b>"
-                + "<div style=\"Javas   cript:abc\" id=\"123\">space</div>"
-                + "<div style=\"java\0script:alert(\"XSS\")\">Null breaks up JavaScript directive</div>"
-                + "<img src=\"http://www.google.com/*\" />"
-                + "<img src=\"javascript:alert('XSS')\" />"
-                + "<img src=\"http://abc.cc/javascript:alert(a)\" />"
-                + "</body>";
+                + "<a href=\"http://www.zhongsou.com/third.cgi?w=%3Cscript%3E+alert%28%2F70826450%2F%29%3B%3C%2Fscript%3E&y=5&k=&netid=&v=%D7%DB%BA%CF\">test</a>";
+        /*
         StringBuffer content = new StringBuffer();
         try {
             // 新建URL对象
@@ -55,7 +36,8 @@ public class AntisamyTest {
         } catch (IOException e) {
             System.err.println(e);
         }
-    	CleanResults cr = as.scan(content.toString(), policy);
+        */
+    	CleanResults cr = as.scan(html, policy);
     	System.out.println(cr.getCleanHTML());
     	long end = System.currentTimeMillis();
     	System.out.println(end - start);

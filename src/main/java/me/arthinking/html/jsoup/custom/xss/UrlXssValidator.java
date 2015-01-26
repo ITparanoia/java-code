@@ -12,6 +12,10 @@ public class UrlXssValidator implements XssValidator{
 	private static Pattern offsiteUrlPattern = null;
 	
 	static {
+	    /**
+	     * \p{L} matches a single code point in the category "letter".
+         * \p{N} matches any kind of numeric character in any script.
+	     */
 		// String onsiteURL = "([\\p{L}\\p{N}\\\\\\.\\#@\\$%\\+&;\\-_~,\\?=/!]+|\\#(\\w)+)";
 		String offsiteURL = "(\\s)*((ht|f)tp(s?)://|mailto:)[\\p{L}\\p{N}]+[\\p{L}\\p{N}\\p{Zs}\\.\\#@\\$%\\+&;:\\-_~,\\?=/!\\(\\)]*(\\s)*";
 		// onsiteUrlPattern = Pattern.compile(onsiteURL);

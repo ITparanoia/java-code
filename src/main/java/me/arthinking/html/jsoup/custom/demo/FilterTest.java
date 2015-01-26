@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import me.arthinking.html.jsoup.custom.CustomWhitelist;
 import me.arthinking.html.jsoup.custom.setting.WhitelistSetting;
@@ -34,7 +35,7 @@ public class FilterTest {
                 + "<STYLE >s<abc></style>"
                 + "<text>sfss>sdf</text>"
                 + "<div style=\"javassccripty:aalbert(123)\">Null breaks up JavaScript directive</div>"
-                + "<img src=\"javascript:alert('XSS')\" />"
+                + "<img src=\"http://www.google.com?&sdf=s\" />"
                 + "</body>";
         // System.out.println(Jsoup.clean(html, htmlFilter));
         // html += "<div style=\"&#x6A&#x61&#x76&#x61&#x73&#x63&#x72&#x69&#x70&#x74&#x3A&#x61&#x6C&#x65&#x72&#x74&#x28&#x27&#x58&#x53&#x53&#x27&#x29\"></div>";
@@ -58,8 +59,12 @@ public class FilterTest {
         } catch (IOException e) {
             System.err.println(e);
         }
+        // URLEncoder 编码无需过滤，在接受参数的服务接受内容的时候，需要确保不会因为这里的参数而导致xss，属于接收方的安全问题
+        html = "<a href=\"http://www.zhongsou.com/third.cgi?w=%3Cscript%3E+alert%28%2F70826450%2F%29%3B%3C%2Fscript%3E&y=5&k=&netid=&v=%D7%DB%BA%CF\">test</a>";
+        html = "<IMG SRC=j&#X41vascript:alert('test2')>";
+        html = "<a href='http://www.google.com/?content=<test>&sdf=sdf'>test</a>";
         long start = System.currentTimeMillis();
-        Document dirty = Parser.parseBodyFragment(content.toString(), "");
+        Document dirty = Parser.parseBodyFragment(html, "");
         Cleaner cleaner = new Cleaner(htmlFilter);
         Document clean = cleaner.clean(dirty);
         System.out.println(clean.html());

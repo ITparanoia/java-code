@@ -15,6 +15,7 @@ public class UrlXssValidator implements XssValidator{
 	    /**
 	     * \p{L} matches a single code point in the category "letter".
          * \p{N} matches any kind of numeric character in any script.
+         * [任何的字母  任何的字符  \  .  #  @  $  %  +  -  _  ~  ?  =  /  !]0~多个  # 字符0~多个
 	     */
 		// String onsiteURL = "([\\p{L}\\p{N}\\\\\\.\\#@\\$%\\+&;\\-_~,\\?=/!]+|\\#(\\w)+)";
 		String offsiteURL = "(\\s)*((ht|f)tp(s?)://|mailto:)[\\p{L}\\p{N}]+[\\p{L}\\p{N}\\p{Zs}\\.\\#@\\$%\\+&;:\\-_~,\\?=/!\\(\\)]*(\\s)*";

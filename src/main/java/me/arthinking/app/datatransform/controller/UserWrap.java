@@ -1,15 +1,10 @@
 package me.arthinking.app.datatransform.controller;
 
 import java.io.IOException;
-
-import net.sf.json.JSONObject;
 import me.arthinking.app.datatransform.bean.User;
 import me.arthinking.app.datatransform.vo.UserVo;
+import net.sf.json.JSONObject;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.PropertyFilter;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 

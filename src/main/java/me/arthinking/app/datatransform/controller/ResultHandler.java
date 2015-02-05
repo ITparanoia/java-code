@@ -1,40 +1,108 @@
 package me.arthinking.app.datatransform.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.math.NumberUtils;
+
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * 结果处理器接口，根据app接口常用的结果封装，抽象出如下接口
+ * 结果处理器
  * @author arthinking
  *
  */
-public interface ResultHandler {
+public class ResultHandler {
 
-	/**
-	 * 获取到结果
-	 */
-	JSONObject process();
+	public ResultHandler(int pageNo, int pageSize, int limit){
+		this.pageNo = pageNo;
+		this.pageSize = pageSize;
+		this.limit = limit;
+	}
+	
+	public static ResultHandler extract(HttpServletRequest req){
+		int pageNo = NumberUtils.toInt(req.getAttribute("pageNo")+"", 0);
+		int pageSize = NumberUtils.toInt(req.getAttribute("pageSize")+"", 0);
+		int limit = NumberUtils.toInt(req.getAttribute("limit")+"", 0);
+		return new ResultHandler(pageNo, pageSize, limit);
+	} 
 	
 	/**
-	 * 获取到结果集
-	 * @return
+	 * 结果处理器，根据结果枚举类型传入处理策略
 	 */
-	JSONObject getData();
+	private Result result = Result.SUCCESS;
+	
+	private JSONObject data = new JSONObject();
+	
+	private String msg;
+	
+	private int pageNo;
+	
+	private int pageSize;
+	
+	private int limit;
+	
+	private int total;
 	
 	/**
-	 * 设置结果集
-	 * @param data
+	 * 调用具体的枚举结果处理返回结果
 	 */
-	void setData(JSONObject data);
+	public String toString(){
+		return result.toString(this);
+	}
 	
-	/**
-	 * 获取消息
-	 * @return
-	 */
-	String getMsg();
+	public JSONObject toJson(){
+		return result.toJSONObject(this);
+	}
 	
-	/**
-	 * 设置消息
-	 * @param msg
-	 */
-	void setMsg(String msg);
+	public void setResult(Result result) {
+		this.result = result;
+	}
+
+	public JSONObject getData() {
+		return data;
+	}
+
+	public void setData(JSONObject data) {
+		this.data = data;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public int getPageNo() {
+		return pageNo;
+	}
+
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public int getLimit() {
+		return limit;
+	}
+	
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+	public static void main(String[] args){
+		// test code
+		HttpServletRequest req = null;
+		ResultHandler handler = ResultHandler.extract(req);
+		handler.setResult(Result.SUCCESS);
+		handler.setData(new JSONObject());
+		handler.setTotal(10);
+		handler.toString();
+	}
+	
 }

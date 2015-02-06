@@ -1,10 +1,17 @@
 package me.arthinking.app.datatransform.controller;
 
 import java.io.IOException;
+
+import me.arthinking.app.datatransform.bean.Favorite;
 import me.arthinking.app.datatransform.bean.User;
+import me.arthinking.app.datatransform.json.JsonConverter;
 import me.arthinking.app.datatransform.vo.UserVo;
 import net.sf.json.JSONObject;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializeFilter;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
@@ -58,7 +65,24 @@ public class UserWrap {
 		
 		User user = new User();
 		user.setNickname("Jason");
-		UserVo userVo = new UserVo(user);
+		
+		Favorite fav = new Favorite();
+		fav.setSportName("football");
+		fav.setStarName("Jay Chou");
+		
+		User temp = new User();
+		temp.setUsername("abc");
+		Favorite tempFav = new Favorite();
+		tempFav.setSportName("swimming");
+		tempFav.setUser(user);
+		temp.setFavorite(tempFav);
+		
+		fav.setUser(temp);
+		user.setFavorite(fav);
+		
+        System.out.println(JsonConverter.toJSONString(user));
+		
+        UserVo userVo = UserVo.fromEntity(user);
 		System.out.println(JSONObject.fromObject(userVo.toJsonString()));
 		return "";
 	}

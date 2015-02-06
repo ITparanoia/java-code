@@ -8,7 +8,15 @@ public class User {
 	
 	private String nickname;
 	
-	public long getId() {
+	private Favorite favorite;
+	
+	public Favorite getFavorite() {
+        return favorite;
+    }
+    public void setFavorite(Favorite favorite) {
+        this.favorite = favorite;
+    }
+    public long getId() {
 		return id;
 	}
 	public void setId(long id) {

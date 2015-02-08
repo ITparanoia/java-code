@@ -11,7 +11,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author arthinking
  *
  */
-public class ResultHandler {
+public class ResultHandler<T> {
 
 	public ResultHandler(int pageNo, int pageSize, int limit){
 		this.pageNo = pageNo;
@@ -19,11 +19,11 @@ public class ResultHandler {
 		this.limit = limit;
 	}
 	
-	public static ResultHandler extract(HttpServletRequest req){
+	public static <T> ResultHandler<T> extract(HttpServletRequest req){
 		int pageNo = NumberUtils.toInt(req.getAttribute("pageNo")+"", 0);
 		int pageSize = NumberUtils.toInt(req.getAttribute("pageSize")+"", 0);
 		int limit = NumberUtils.toInt(req.getAttribute("limit")+"", 0);
-		return new ResultHandler(pageNo, pageSize, limit);
+		return new ResultHandler<T>(pageNo, pageSize, limit);
 	} 
 	
 	/**
@@ -31,7 +31,7 @@ public class ResultHandler {
 	 */
 	private Result result = Result.SUCCESS;
 	
-	private JSONObject data = new JSONObject();
+	private T data = null;
 	
 	private String msg;
 	
@@ -58,11 +58,11 @@ public class ResultHandler {
 		this.result = result;
 	}
 
-	public JSONObject getData() {
+	public T getData() {
 		return data;
 	}
 
-	public void setData(JSONObject data) {
+	public void setData(T data) {
 		this.data = data;
 	}
 
@@ -98,7 +98,7 @@ public class ResultHandler {
 	public static void main(String[] args){
 		// test code
 		HttpServletRequest req = null;
-		ResultHandler handler = ResultHandler.extract(req);
+		ResultHandler<JSONObject> handler = ResultHandler.extract(req);
 		handler.setResult(Result.SUCCESS);
 		handler.setData(new JSONObject());
 		handler.setTotal(10);

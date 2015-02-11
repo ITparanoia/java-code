@@ -17,6 +17,16 @@ public class Des {
         return Base64.encode(encryptedData);
     }
     
+    /**
+     * CBC模式
+     * @param decryptString
+     * @param decryptKey
+     * @return
+     * @throws Exception
+     * String
+     * @author Jason Peng
+     * @update date 2015年2月9日
+     */
     public static String decryptDES(String decryptString, String decryptKey) throws Exception {
         byte[] byteMi = Base64.decode(decryptString);
         IvParameterSpec zeroIv = new IvParameterSpec(iv);

@@ -13,7 +13,7 @@ public class MyXssValidator implements XssValidator{
                                           .replaceAll("\\r", "")
                                           .replaceAll("\\n", "")
                                           .toLowerCase();
-            // 如果包含了不允许的字符，报错
+            // 如果包含了不允许的字符，则判断为不合法的属性
             if(value.contains("*")){
                 return false;
             }

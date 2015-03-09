@@ -27,9 +27,9 @@ public class C9_6_HackSystem{
 		System.setSecurityManager(s); 
 	} 
 	
-	public static SecurityManager getSecurityManager(){ 
-		return System.getSecurityManager(); 
-	} 
+	public static SecurityManager getSecurityManager(){
+		return System.getSecurityManager();
+	}
 	
 	public static long currentTimeMillis(){ 
 		return System.currentTimeMillis();

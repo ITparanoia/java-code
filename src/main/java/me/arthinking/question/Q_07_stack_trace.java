@@ -80,6 +80,7 @@ class TestA{
          * 因为sun包并不包含在Java平台的标准中，它与操作系统相关，在不同的操作系统如Solaris，Windows，Linux，Mac等中的实现也各不相同，并且可能随着JDK版本而变化。
          * 详细说明: http://www.oracle.com/technetwork/java/faq-sun-packages-142232.html
          *     
+         * 发表于：http://www.itzhai.com/get-invoker-by-stacktrace-and-getcallerclass.html
          */
     }
 }

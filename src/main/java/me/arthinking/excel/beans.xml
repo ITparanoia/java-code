@@ -47,6 +47,7 @@
     </bean>
 
     <!-- 配置事务拦截器 -->
+    <!--
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="list*" read-only="true" propagation="NOT_SUPPORTED" />
@@ -57,6 +58,7 @@
             <tx:method name="*" propagation="REQUIRED" />
         </tx:attributes>
     </tx:advice>
+    -->
     
     <aop:config>
         <aop:pointcut id="excelParserService" expression="execution(* me.arthinking.excel.persistent.*(..)) || execution(* me.arthinking.excel.persistent.mysql.*(..))" />

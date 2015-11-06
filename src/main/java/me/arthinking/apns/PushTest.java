@@ -20,6 +20,7 @@ public class PushTest {
 	private static Logger logger = Logger.getLogger(PushTest.class);
 	
 	public static void main(String[] args) {
+		System.setProperty("javax.net.debug", "ssl,handshake");  
 		System.out.println("test push server...");
         String deviceToken = "d7e6132895b388cf016433167c9e2d97fe4b76ca5a1692209a3b6e3cb3fdcd9c";
         String alert = "test new message"; // push的内容
